@@ -4,23 +4,26 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const EditTaskPopup = ({modal, toggle, updateTask, taskObj}) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const [comment, setComment] = useState('');
 
     const handleChange = (e) => {
-        
+
         const {name, value} = e.target
 
         if(name === "taskName"){
             setTaskName(value)
-        }else{
+        }else if(name==="description"){
             setDescription(value)
+
+        }else{
+            setComment(value)
         }
-
-
     }
 
     useEffect(() => {
         setTaskName(taskObj.Name)
         setDescription(taskObj.Description)
+        setComment(taskObj.Comment)
     },[])
 
     const handleUpdate = (e) => {
@@ -28,6 +31,7 @@ const EditTaskPopup = ({modal, toggle, updateTask, taskObj}) => {
         let tempObj = {}
         tempObj['Name'] = taskName
         tempObj['Description'] = description
+        tempObj['Comment'] = comment
         updateTask(tempObj)
     }
 
@@ -44,6 +48,10 @@ const EditTaskPopup = ({modal, toggle, updateTask, taskObj}) => {
                         <label>Description</label>
                         <textarea rows = "5" className = "form-control" value = {description} onChange = {handleChange} name = "description"></textarea>
                     </div>
+                <div className = "form-group">
+                    <label>Comment</label>
+                    <textarea rows = "5" className = "form-control" value = {comment} onChange = {handleChange} name = "comment"></textarea>
+                </div>
                 
             </ModalBody>
             <ModalFooter>

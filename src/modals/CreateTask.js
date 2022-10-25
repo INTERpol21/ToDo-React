@@ -4,6 +4,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const CreateTaskPopup = ({modal, toggle, save}) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const [comment, setComment] = useState('');
+
 
     const handleChange = (e) => {
         
@@ -11,8 +13,11 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
 
         if(name === "taskName"){
             setTaskName(value)
-        }else{
+        }else if(name==="description"){
             setDescription(value)
+
+        }else{
+            setComment(value)
         }
 
 
@@ -23,7 +28,9 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
         let taskObj = {}
         taskObj["Name"] = taskName
         taskObj["Description"] = description
+        taskObj['Comment'] = comment
         save(taskObj)
+
 
     }
 
@@ -40,6 +47,10 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
                         <label>Description</label>
                         <textarea rows = "5" className = "form-control" value = {description} onChange = {handleChange} name = "description"></textarea>
                     </div>
+                <div className = "form-group">
+                    <label>Comment</label>
+                    <textarea rows = "5" className = "form-control" value = {comment} onChange = {handleChange} name = "Comment"></textarea>
+                </div>
                 
             </ModalBody>
             <ModalFooter>
